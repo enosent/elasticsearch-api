@@ -2,6 +2,7 @@ package com.ymcorp.search.core
 
 import com.sksamuel.elastic4s.ElasticDsl._
 import com.sksamuel.elastic4s.{ElasticsearchClientUri, TcpClient}
+import com.ymcorp.search.client.ESClient
 import org.elasticsearch.action.support.WriteRequest.RefreshPolicy
 import org.elasticsearch.search.aggregations.bucket.terms.Terms
 
@@ -16,7 +17,7 @@ object ElasticsearchService {
   def list: String = {
 
     // Here we create an instance of the TCP client
-    val client = TcpClient.transport(ElasticsearchClientUri("127.0.0.1", 9300))
+    val client = ESClient.client
 
     val resp = client.execute {
       search("test_deal_list") query {
@@ -31,7 +32,7 @@ object ElasticsearchService {
   def aggregate: String = {
 
     // Here we create an instance of the TCP client
-    val client = TcpClient.transport(ElasticsearchClientUri("127.0.0.1", 9300))
+    val client = ESClient.client
 
     val resp = client.execute {
       search ("test_deal_list") query {
@@ -52,7 +53,7 @@ object ElasticsearchService {
   def scoreSearch: String = {
 
     // Here we create an instance of the TCP client
-    val client = TcpClient.transport(ElasticsearchClientUri("127.0.0.1", 9300))
+    val client = ESClient.client
 
     val keyword = "신사동"
 
